@@ -109,7 +109,7 @@ $orders = db_getAllOrders($DBH);
                           </tr>
                         <?php endforeach; ?>
                     </table>
-                  <?php endif; ?>
+                    <?php endif; ?>
             </div>
         </section>
     </div>

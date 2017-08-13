@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($existing_user)) {
         $user_id = db_insertUser($DBH, $user);
-
     } else {
         $user_id = $existing_user[0]['id'];
     }
@@ -36,5 +35,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($mail_result) {
         echo "<br>На ваш адрес ($email) отправлено письмо";
     }
-
 }

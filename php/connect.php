@@ -6,7 +6,6 @@ $pass = '';
 
 try {
     $DBH = new PDO("mysql:host=$ip;dbname=$db", $db_user, $pass);
-}
-catch(PDOException $e) {
+} catch (PDOException $e) {
     echo $e->getMessage();
 }

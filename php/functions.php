@@ -123,8 +123,9 @@ function formUserFromPost() : array
 }
 
 /**
- * Формирует из post запроса массив данных заказа для последующей вставки в БД
+ * Формирует из post запроса массив данных заказа для последующей вставки в БД.
  *
+ * @param int $user_id
  * @return array
  */
 function formOrderFromPost(int $user_id) : array
