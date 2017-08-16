@@ -44,7 +44,7 @@ function db_insertOrder(pdo $DBH, array $data)
 function db_findUserByEmail(pdo $DBH, string $email) : array
 {
     $STH = $DBH->prepare('SELECT * FROM users WHERE email = ?');
-    $STH->execute([0 => $email]);
+    $STH->execute([$email]);
     $data = [];
 
     while ($row = $STH->fetch()) {
@@ -115,9 +115,9 @@ function formUserFromPost() : array
 {
     $user = [];
 
-    $user[] = $_POST['name'];
-    $user[] = $_POST['email'];
-    $user[] = $_POST['phone'];
+    $user[] = trim($_POST['name'] ?? '');
+    $user[] = trim($_POST['email'] ?? '');
+    $user[] = trim($_POST['phone'] ?? '');
 
     return $user;
 }
@@ -130,13 +130,22 @@ function formUserFromPost() : array
  */
 function formOrderFromPost(int $user_id) : array
 {
-    $order = [];
+    $street = trim($_POST['street'] ?? '');
+    $home = trim($_POST['home'] ?? '');
+    $part = trim($_POST['part'] ?? '');
+    $appt = trim($_POST['appt'] ?? '');
 
-    $order[] = $user_id;
-    $order[] = $_POST['street'] . ', ' . $_POST['home'] . ' - ' . $_POST['part'] . ', ' . $_POST['appt'];
-    $order[] = $_POST['comment'];
-    $order[] = $_POST['payment'];
-    $order[] = $_POST['callback'];
+    if (empty($street)) {
+        $address = 'Внимание! Адрес доставки не указан';
+    } else {
+        $address = $street . ', ' . $home . ' - ' . $part . ', ' . $appt;
+    }
+
+    $comment = trim($_POST['comment'] ?? '');
+    $payment = trim($_POST['payment'] ?? '');
+    $callback = trim($_POST['callback'] ?? '');
+
+    $order = [$user_id, $address, $comment, $payment, $callback];
 
     return $order;
 }
